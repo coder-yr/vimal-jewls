@@ -263,6 +263,7 @@ const productCategories = {
         reviews: 50,
         imageQuery: "classic solitaire diamond ring",
         badge: "BESTSELLER",
+        image: "https://www.candere.com/media/jewellery/images/KC05017YG_1.jpeg"
       },
       {
         id: "floral-gold-ring",
@@ -274,6 +275,7 @@ const productCategories = {
         reviews: 20,
         imageQuery: "floral design gold ring",
         badge: "TRENDING",
+        image: "https://www.candere.com/media/jewellery/images/KC01124__1.jpeg"
       },
     ],
   },
@@ -303,6 +305,7 @@ const productCategories = {
         reviews: 30,
         imageQuery: "diamond heart pendant necklace",
         badge: "BESTSELLER",
+        image: "https://www.candere.com/media/jewellery/images/KC03591__1.jpeg"
       },
       {
         id: "gold-chain-with-pearl",
@@ -314,6 +317,7 @@ const productCategories = {
         reviews: 18,
         imageQuery: "gold chain with pearl necklace",
         badge: "LIMITED DEAL",
+        image:"https://www.candere.com/media/jewellery/images/C019604_1_1.jpeg",
       },
     ],
   },
@@ -343,6 +347,7 @@ const productCategories = {
         reviews: 25,
         imageQuery: "diamond tennis bracelet",
         badge: "BESTSELLER",
+        image: "https://www.candere.com/media/jewellery/images/c021371_1.jpeg"
       },
       {
         id: "gold-kada-bracelet",
@@ -354,6 +359,7 @@ const productCategories = {
         reviews: 15,
         imageQuery: "gold kada bracelet",
         badge: "TRENDING",
+        image:"https://www.candere.com/media/jewellery/images/KC06407PLT_Creative.jpeg"
       },
     ],
   },
@@ -383,6 +389,7 @@ const productCategories = {
         reviews: 60,
         imageQuery: "round solitaire diamond ring",
         badge: "BESTSELLER",
+        image: "https://www.candere.com/media/jewellery/images/KC05017YG_1.jpeg"
       },
       {
         id: "princess-cut-solitaire-pendant",
@@ -394,6 +401,7 @@ const productCategories = {
         reviews: 40,
         imageQuery: "princess cut solitaire pendant",
         badge: "LIMITED DEAL",
+        image:"https://www.candere.com/media/jewellery/images/C022020_1.jpeg"
       },
     ],
   },
@@ -422,6 +430,7 @@ const productCategories = {
         reviews: 22,
         imageQuery: "traditional gold mangalsutra",
         badge: "TRENDING",
+        image :"https://www.candere.com/media/jewellery/images/K000730_1.jpg"
       },
       {
         id: "diamond-mangalsutra-pendant",
@@ -433,6 +442,7 @@ const productCategories = {
         reviews: 18,
         imageQuery: "diamond mangalsutra pendant",
         badge: "BESTSELLER",
+        image:"https://www.candere.com/media/jewellery/images/KC06617RG_1.jpg"
       },
     ],
   },
@@ -461,6 +471,7 @@ const productCategories = {
         reviews: 12,
         imageQuery: "diamond nose pin",
         badge: "BESTSELLER",
+        image:"https://www.candere.com/media/jewellery/images/C007029__1.jpeg"
       },
       {
         id: "gold-toe-ring",
@@ -472,6 +483,7 @@ const productCategories = {
         reviews: 8,
         imageQuery: "gold toe ring",
         badge: "TRENDING",
+        image:"https://www.candere.com/media/jewellery/images/LCR0579_1.jpeg"
       },
     ],
   },
@@ -537,23 +549,70 @@ const productCategories = {
   },
 }
 
-export default function CategoryPage() { // Corrected params type
-  const params = useParams() // Use useParams to get the slug in client components
-  const { slug } = params // Directly access slug, no use() needed for client components
-  const categoryData = productCategories[slug as keyof typeof productCategories]
+const categoryBanners = {
+  earrings: {
+    image: "https://www.candere.com/media/catalog/category/Earrings-Listing-Page-Banner.jpg",
+    alt: "Earrings Banner",
+  },
+  rings: {
+    image: "https://www.candere.com/media/catalog/category/Ring-Listing-Page-Banner.jpg",
+    alt: "Rings Banner",
+  },
+  necklace: {
+    image: "https://www.candere.com/media/catalog/category/Necklace-Listing-Page-Banner.jpg",
+    alt: "Necklace Banner",
+  },
+  "bangles-bracelets": {
+    image: "https://www.candere.com/media/catalog/category/Bracelets-Listing-Page-Banner.jpg",
+    alt: "Bangles & Bracelets Banner",
+  },
+  solitaires: {
+    image: "https://www.candere.com/media/catalog/category/Solitaire-LP_2.jpg",
+    alt: "Solitaires Banner",
+  },
+  "mangalsutras-pendants": {
+    image: "https://www.candere.com/media/catalog/category/LP-Bestseller_1_.jpg",
+    alt: "Mangalsutras & Pendants Banner",
+  },
+  "other-jewellery": {
+    image: "https://www.candere.com/media/catalog/category/Exchange-PLP.jpg",
+    alt: "Other Jewellery Banner",
+  },
+  gifts: {
+    image: "https://www.candere.com/media/catalog/category/Gifting-Desktop.jpg",
+    alt: "Gifts Banner",
+  },
+};
+
+export default function CategoryPage() {
+  const params = useParams();
+  const { slug } = params;
+  const categoryData = productCategories[slug as keyof typeof productCategories];
+  const bannerData = categoryBanners[slug as keyof typeof categoryBanners];
 
   if (!categoryData) {
-    return <div className="text-center py-10">Category not found.</div>
+    return <div className="text-center py-10">Category not found.</div>;
   }
 
   return (
     <div className="flex flex-col min-h-screen bg-white text-gray-900">
+      {/* Dynamic Banner */}
+      {bannerData && (
+        <div className="w-full relative h-64 md:h-80 lg:h-[30vh] xl:h-[40vh] flex items-center justify-center bg-gradient-to-r from-[#0a2a36] to-[#1a4d5c] mb-6">
+          <img
+            src={bannerData.image}
+            alt={bannerData.alt}
+            className="absolute inset-0 w-full h-full object-cover object-center opacity-90"
+          />
+        </div>
+      )}
+
       {/* Breadcrumb */}
       <div className="bg-gray-100 py-3 px-4 md:px-8 text-sm text-gray-600">
         <Link href="/" className="hover:underline">
           Home
         </Link>{" "}
-        /{" "}
+        /
         <Link href="/category/jewellery" className="hover:underline">
           Jewellery
         </Link>{" "}
@@ -561,9 +620,12 @@ export default function CategoryPage() { // Corrected params type
       </div>
 
       {/* Tabs */}
-      <div className="bg-white py-4 px-4 md:px-8 border-b border-gray-200 flex gap-4">
+      <div className="bg-white py-4 px-4 md:px-8 border-b border-gray-200 flex gap-4 overflow-x-auto">
         <Button className="bg-[#009999] text-white px-6 py-2 rounded-full">All</Button>
-        <Button variant="outline" className="border-gray-300 text-gray-700 px-6 py-2 rounded-full bg-transparent">
+        <Button
+          variant="outline"
+          className="border-gray-300 text-gray-700 px-6 py-2 rounded-full bg-transparent"
+        >
           In Stock
         </Button>
       </div>
@@ -576,7 +638,11 @@ export default function CategoryPage() { // Corrected params type
             <span className="text-lg font-bold text-[#009999]">0</span>
           </div>
 
-          <strong role="heading" aria-level={2} className="block-subtitle filter-subtitle mb-4">
+          <strong
+            role="heading"
+            aria-level={2}
+            className="block-subtitle filter-subtitle mb-4"
+          >
             Shopping Options
           </strong>
 
@@ -612,7 +678,7 @@ export default function CategoryPage() { // Corrected params type
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {categoryData.products.map((product : any) => (
+            {categoryData.products.map((product: any) => (
               <Link
                 href={`/product/${product.id}`}
                 key={product.id}
@@ -624,26 +690,34 @@ export default function CategoryPage() { // Corrected params type
                       product.badge === "TRENDING"
                         ? "bg-pink-500"
                         : product.badge === "BESTSELLER"
-                          ? "bg-purple-500"
-                          : "bg-orange-500"
+                        ? "bg-purple-500"
+                        : "bg-orange-500"
                     }`}
                   >
-                    {product.badge === "TRENDING" && <TrendingUp className="inline-block w-3 h-3 mr-1" />}
-                    {product.badge === "BESTSELLER" && <Crown className="inline-block w-3 h-3 mr-1" />}
-                    {product.badge === "LIMITED DEAL" && <Clock className="inline-block w-3 h-3 mr-1" />}
                     {product.badge}
                   </div>
                 )}
                 <div className="absolute top-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <Button variant="ghost" size="icon" className="bg-white rounded-full shadow-md">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="bg-white rounded-full shadow-md"
+                  >
                     <PlayCircle className="w-5 h-5 text-gray-700" />
                   </Button>
-                  <Button variant="ghost" size="icon" className="bg-white rounded-full shadow-md">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="bg-white rounded-full shadow-md"
+                  >
                     <Heart className="w-5 h-5 text-gray-700" />
                   </Button>
                 </div>
                 <Image
-                  src={`${product.image || `/placeholder.svg?height=360&width=360&query=${product.imageQuery}`}`}
+                  src={
+                    product.image ||
+                    `/placeholder.svg?height=360&width=360&query=${product.imageQuery}`
+                  }
                   alt={product.name}
                   width={250}
                   height={250}
@@ -651,45 +725,32 @@ export default function CategoryPage() { // Corrected params type
                 />
                 <div className="p-4">
                   <div className="flex items-center justify-between mb-2">
-                    <div className="text-lg font-bold text-[#009999]">₹{product.currentPrice}</div>
-                    <div className="text-sm text-gray-500 line-through">₹{product.originalPrice}</div>
+                    <div className="text-lg font-bold text-[#009999]">
+                      ₹{product.currentPrice}
+                    </div>
+                    <div className="text-sm text-gray-500 line-through">
+                      ₹{product.originalPrice}
+                    </div>
                   </div>
-                  <p className="text-sm text-green-600 font-medium mb-2">{product.discount}</p>
-                  <h3 className="text-base font-medium text-gray-800 mb-2">{product.name}</h3>
+                  <p className="text-sm text-green-600 font-medium mb-2">
+                    {product.discount}
+                  </p>
+                  <h3 className="text-base font-medium text-gray-800 mb-2">
+                    {product.name}
+                  </h3>
                   <div className="flex items-center text-sm text-gray-600">
                     <Star className="w-4 h-4 fill-yellow-500 text-yellow-500 mr-1" />
                     <span>{product.rating}</span>
                     <span className="ml-1">({product.reviews})</span>
                   </div>
-                  {product.colorSwatch && (
-                    <div
-                      className="absolute bottom-4 right-4 w-4 h-4 rounded-full border border-gray-300"
-                      style={{ backgroundColor: product.colorSwatch }}
-                    ></div>
-                  )}
                 </div>
               </Link>
             ))}
-
-            {/* Promotional Banner */}
-            <div className="col-span-1 sm:col-span-2 lg:col-span-3 xl:col-span-4 bg-gray-200 rounded-lg overflow-hidden relative h-60 flex items-center justify-center">
-              <Image
-                src="https://www.candere.com/media/image/banners/Earring_1.jpg"
-                alt="Sparkling Earrings Promotion"
-                fill
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center text-white text-center p-4">
-        
-                {/* <h3 className="text-2xl md:text-3xl font-bold leading-tight">Pair with anything & everything!</h3>
-                <p className="text-4xl md:text-5xl font-extrabold italic mt-2">Sparkling EARRINGS!</p> */}
-              </div>
-            </div>
           </div>
         </main>
       </div>
     </div>
-  )
+  );
 }
 
 function FilterOptions({ filter }: { filter: any }) {
